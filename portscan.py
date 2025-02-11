@@ -20,7 +20,7 @@ parser = argparse.ArgumentParser(prog="portscan", description="PortScanner", epi
 parser.add_argument("host", nargs="?", help="IP address")
 parser.add_argument("-p", "--ports", nargs="+", type=int, default=common_ports, help="ports (separated by space)")
 parser.add_argument("-O", "--output", action="store_true", help="save scan result in file")
-parser.add_argument("--version", action="version", version="%(prog)s 2025.0", help="show program version")
+parser.add_argument("--version", action="version", version="%(prog)s 2025.1", help="show program version")
 args = parser.parse_args()
 
 counter = 0
@@ -28,7 +28,7 @@ open_ports = []
 
 
 def main():
-    print("PortScanner 2025.0 | (c) Ivaylo Vasilev")
+    print("PortScanner 2025.1 | (c) Ivaylo Vasilev")
     print("=======================================")
 
     target_host = args.host
@@ -66,10 +66,9 @@ def port_scanner(host, ports):
         print(f"error: {e}")
         sys.exit(2)
     
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socket.setdefaulttimeout(1)
-
     for port in ports:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socket.setdefaulttimeout(1)
         try:
             if sock.connect_ex((host, port)):
                 print(f"{Fore.LIGHTRED_EX}[-] Port {port}: CLOSED{Fore.RESET}")
