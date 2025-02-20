@@ -17,10 +17,10 @@ common_ports = [18, 20, 21, 22, 23, 25, 42, 43, 49, 53, 67, 68, 69, 70, 79, 80, 
                 9389, 11371]
 
 parser = argparse.ArgumentParser(prog="portscan", description="PortScanner", epilog="(c) Ivaylo Vasilev")
-parser.add_argument("host", nargs="?", help="IP address")
+parser.add_argument("ipaddr", nargs="?", help="IP address")
 parser.add_argument("-p", "--ports", nargs="+", type=int, default=common_ports, help="ports (separated by space)")
 parser.add_argument("-O", "--output", action="store_true", help="save scan result in file")
-parser.add_argument("--version", action="version", version="%(prog)s 2025.1", help="show program version")
+parser.add_argument("--version", action="version", version="%(prog)s 2025.2", help="show program version")
 args = parser.parse_args()
 
 counter = 0
@@ -28,10 +28,18 @@ open_ports = []
 
 
 def main():
-    print("PortScanner 2025.1 | (c) Ivaylo Vasilev")
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(3)
+    elif not args.ipaddr:
+        print("error: missing required positional argument: ipaddr")
+        parser.print_usage()
+        sys.exit(4)
+    
+    print("PortScanner 2025.2 | (c) Ivaylo Vasilev")
     print("=======================================")
 
-    target_host = args.host
+    target_host = args.ipaddr
     ports = args.ports
 
     print(f"\n *  Scanning {target_host} for {len(ports)} open ports ...\n")
