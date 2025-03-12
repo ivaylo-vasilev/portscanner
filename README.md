@@ -17,3 +17,6 @@ Scan a device from the network for open ports.
 
 `$python3 portscan.py --help`
 
+---
+
+![portscan](https://github.com/user-attachments/assets/710dfd97-7786-40ac-8268-a65b1d9d5f3f)
